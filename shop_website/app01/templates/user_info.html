@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/user_info.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <h2 align="center">帳號資訊</h2>
+    <div class="product-card" style="margin-left:42%; max-width: 20em;">
+        <div class="login-input">
+            <div class="text account">
+                <p>帳號名稱： {{ obj.account }}</p>
+            </div>
+        </div>
+        <br>
+        <div class="login-input">
+            <div class="input">
+                <p>取貨人姓名： 
+                    {% if obj.name %}
+                    {{ obj.name }}
+                    {% else %}
+                    尚未新增
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="login-input">
+            <div class="input">
+                <p>手機號碼： 
+                    {% if obj.phone_number %}
+                    {{ obj.phone_number }}
+                    {% else %}
+                    尚未新增
+                    {% endif %}
+                </p>
+            </div>
+        </div>    
+        <br>
+        <div class="login-input">
+            <div class="input">
+                <p>地址： 
+                    {% if obj.address %}
+                    {{ obj.address }}
+                    {% else %}
+                    尚未新增
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <a href="/mix_shop/user_info/change/" class="btn btn-primary" style="width:8em">更改資料</a>
+    </div>
+{% endblock %}

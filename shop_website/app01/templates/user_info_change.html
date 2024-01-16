@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block _style %}
+<style>
+    .inline-links {
+        display: flex;
+        gap: 10px; /* 調整連結之間的間距 */
+        align-items: flex-end;
+    }
+</style>
+{% endblock %}
+
+{% block css_file %}
+<!-- <link rel="stylesheet" href="{% static 'css/user_info.css' %}" /> -->
+{% endblock %}
+
+{% block content %}
+    <h2 align="center">帳號資料</h2>
+    <div class="product-card" style="margin-left:42%; max-width: 20em;">
+        <div class="login-input">
+            <div class="text account">
+                <p>帳號名稱： {{ obj.account }}</p>
+            </div>
+        </div>
+        <br>
+        <!-- 更改資料表單 -->
+        <form method="post" >
+            {% csrf_token %}
+            <div class="login-input">
+                <div class="input">
+                    <p>取貨人姓名： <input 
+                        value="{% if obj.name %}{{ obj.name }}{% endif %}" 
+                        placeholder="請輸入姓名" name="name" type="text">
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="login-input">
+                <div class="input">
+                    <p>手機號碼： <input 
+                        value="{% if obj.phone_number %}{{ obj.phone_number }}{% endif %}"
+                        placeholder="請輸入手機號碼" name="phone" type="tel">
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="login-input">
+                <div class="input">
+                    <p>地址： <textarea placeholder="請輸入地址" name="address" type="text"cols="30" rows="2">{% if obj.address %}{{ obj.address }}{% endif %}</textarea>   </p>
+                </div>
+            </div>
+            <div class="inline-links">
+                <input type="submit" value="確 認" class="btn btn-primary" style="width: 6em; height: 2.5em;">
+                <a href="/mix_shop/user_info/" class="btn btn-secondary" style="width: 6em; height: 2.5em;">返 回</a>
+            </div>
+        </form>        
+    </div>
+{% endblock %}

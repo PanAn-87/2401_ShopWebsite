@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block _style %}
+<style>
+    .inline-links {
+        display: flex;
+        gap: 10px; /* 調整連結之間的間距 */
+        align-items: flex-end;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- <div style="max-width: 50%; margin-left:25%;">
+    <h2>SQL Query Result</h2>
+    <table border="1">
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    
+        {% for row in rows %}
+        <tr>
+            <td>{{ row }}</td>
+            <td>{{ row.1 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div> -->
+<link rel="stylesheet" href="user_information.css" />
+<h2 align="center">SQL測試區</h2>
+<div style="max-width: 50%; margin-left:25%;">
+<hr>
+    <div class="login-input">
+        <div class="input account1">
+            <h5>請輸入SQL指令</h5>
+            <form method="post">
+                {% csrf_token %}
+                <textarea placeholder="請輸入SQL語句" name="sql_cmd" type="text" cols="80" rows="5"></textarea>
+                <div class="inline-links">
+                    <input type="submit" value="送 出" class="btn btn-primary" style="width: 6em; height: 2.5em;">
+                    <a href="/mix_shop/homepage/" class="btn btn-secondary" style="width: 6em; height: 2.5em;">返 回</a>
+                </div>
+            </form> 
+        </div>
+    </div>
+    <br>
+    <h5>輸出結果</h5>
+    <table border="1">
+        {% for row in rows %}
+        <tr>
+            {% for value in row%}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

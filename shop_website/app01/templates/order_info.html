@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="product" style="max-width: 50%;">
+    <h3 >訂單詳情：</h3>
+    <!-- <h4 >訂單號： </h4>
+    <h4 >總額： </h4>
+    <h4 >日期： </h4>
+    <h4 >訂單狀態： </h4>
+    <h4 >付款方式： </h4>
+    <h4 >取貨姓名： </h4>
+    <h4 >手機號碼： </h4>
+    <h4 >地址： </h4> -->
+    <p>訂單號: {{ order.order_id }}</p>
+    <p>日期: {{ order.order_date }}</p>
+    <p>訂單狀態: {{ order.get_order_status_display }}</p>
+    <p>付款方式: {{ order.get_payment_display }}</p>
+    <hr>
+    <p>取貨姓名: {{ order.name }}</p>
+    <p>手機號碼: {{ order.phone_number }}</p>
+    <p>地址: {{ order.address }}</p>
+    <hr>
+
+    <table>
+      <tr>
+        <th>商品訊息</th>
+        <th>售價</th>
+        <th>數量</th>
+        <th>總額</th>
+      </tr>
+      {% for obj in item_list %}
+      <tr>
+        <td><img src=" {{ obj.product.product_image.url}} " style="height: 50pt; width: 40pt;">{{ obj.product.product_name }}</td>
+        <td>NT$ {{ obj.product.price }}</td>
+        <td>{{ obj.quantity }}</td>
+        <td style="color:orangered">NT$ {{ obj.items_price }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p>{{ item_list.count }} 種商品，共 {{ sum_quantity }} 項</p>
+    <p style="color:orangered">總金額： NT$ {{ sum_price }}</p>
+    <a href="/mix_shop/order_list/" class="btn btn-secondary">返 回</a>
+</div>
+{% endblock %}

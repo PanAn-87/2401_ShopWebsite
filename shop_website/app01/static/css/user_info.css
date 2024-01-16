@@ -1,0 +1,21 @@
+/* Style for the user information container */
+.login-input {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto; /* Adjust margin to move content away from the left edge */
+}
+
+/* Style for the input fields */
+.input {
+    margin-top: 5px;
+}
+
+/* Style for the product card */
+.product-card {
+    background-color: #fff;
+    width: 100%; /* You can adjust this width as needed */
+    max-width: 600px; /* Set the maximum width as needed */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0 auto; /* Center horizontally */
+}

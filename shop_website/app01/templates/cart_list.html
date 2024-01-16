@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block _style %}
+<style>
+    .product {
+        margin-left:25%;
+        padding:1px 16px;
+        height:1000px;
+    }
+</style>
+{% endblock %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/user_info.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="product" style="max-width: 50%;">
+    <h2>購物車</h2>
+    <table>
+        <tr>
+        {% if data_list %}
+          <th>商品訊息</th>
+          <th>售價</th>
+          <th>數量</th>
+          <th>總額</th>
+          <th></th>
+          {% endif %}
+        </tr>
+        {% for obj in data_list %}
+        <tr>
+          <td><img src="{{ obj.product.product_image.url }}" style="height: 50pt; width: 40pt;">{{ obj.product.product_name }}</td>
+          <td>NT$ {{ obj.product.price }}</td>
+          <td>{{ obj.quantity }}</td>
+          <td style="color:orangered">NT$ {{ obj.items_price }}</td>
+          <td><a href="/mix_shop/cart_list/delete/?nid= {{ obj.cartitem_id }}">刪除</a></td>
+        </tr>
+        {% endfor %}
+      </table></p></p></p>
+      {% if data_list %}
+      <p>{{ data_list.count }} 種商品，共 {{ sum_quantity }} 項</p>
+      <p style="color:orangered">總金額： NT$ {{ sum_price }}</p>
+      <a href="/mix_shop/cart_list/checkout/" class="btn btn-warning">前往結帳</a>
+      {% else %}
+      <p>購物車為空</p>      
+      {% endif %}
+</div>
+{% endblock %}

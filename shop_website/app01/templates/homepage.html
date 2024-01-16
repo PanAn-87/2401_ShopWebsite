@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 商品列 -->
+<div class="container mt-3 my_split-h5">
+    <div class="row row-cols-1 row-cols-md-4 justify-content-start" >
+        {% for obj in data_list %}
+        <div class="col mb-4">
+            <div class="card" style="height: 25rem; width: 18rem; background-color: rgb(240, 240, 240);">
+                <img src="{{ obj.product_image.url }}" class="card-img-top my_card-image"alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" >{{ obj.product_name }}</h5>
+                    <p class="card-text" style="color:orangered">NT${{obj.price}}</p>
+                    <a href="/mix_shop/{{ obj.product_id }}/product/" class="btn btn-info">查看</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

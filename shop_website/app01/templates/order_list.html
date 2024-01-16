@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block _style %}
+<style>
+.product {
+        margin-left:25%;
+        padding:1px 16px;
+        height:1000px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 align=" center">訂單列表</h2>
+    <div class="product" style="max-width: 50%;">
+        <table>
+            <tr>
+                <th>訂單號</th>
+                <th>日期</th>
+                <th>總額</th>
+                <th>訂單狀態</th>
+                <th>付款方式</th>
+                <th></th>
+            </tr>
+            {% for obj in data_list %}
+            <tr>
+                <td> {{obj.order_id}} </td>
+                <td> {{obj.order_date}} </td>
+                <td> {{obj.total_price}} </td>
+                <td> {{obj.get_order_status_display}} </td>
+                <td> {{obj.get_payment_display}} </td>
+                <td><a href="/mix_shop/order_list/{{ obj.order_id }}/">查看</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block _style %}
+<style>
+    .product {
+        margin-left:25%;
+        padding:1px 16px;
+        height:1000px;
+    }
+</style>
+{% endblock %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/user_info.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="product" style="max-width: 50%;">
+    <h2>確認訂單</h2>
+    <table>
+        <tr>
+        {% if data_list %}
+          <th>商品訊息</th>
+          <th>售價</th>
+          <th>數量</th>
+          <th>總額</th>
+          {% endif %}
+        </tr>
+        {% for obj in data_list %}
+        <tr>
+          <td><img src="{{ obj.product.product_image.url }}" style="height: 50pt; width: 40pt;">{{ obj.product.product_name }}</td>
+          <td>NT$ {{ obj.product.price }}</td>
+          <td>{{ obj.quantity }}</td>
+          <td style="color:orangered">NT$ {{ obj.items_price }}</td>
+        </tr>
+        {% endfor %}
+      </table></p></p></p>
+
+      <p>{{ data_list.count }} 種商品，共 {{ sum_quantity }} 項</p>
+      <p style="color:orangered">總金額： NT$ {{ sum_price }}</p>
+      <hr>
+      <form method="post">
+        {% csrf_token %}
+        <div class="login-input">
+            <div class="input">
+                <p>取貨人姓名： <input 
+                    value="{% if obj.name %}{{ obj.name }}{% endif %}" 
+                    placeholder="請輸入姓名" name="name" type="text">
+                </p>
+            </div>
+        </div>
+        <div class="login-input">
+            <div class="input">
+                <p>手機號碼： <input 
+                    value="{% if obj.phone_number %}{{ obj.phone_number }}{% endif %}"
+                    placeholder="請輸入手機號碼" name="phone" type="tel">
+                </p>
+            </div>
+        </div>
+        <div class="login-input">
+            <div class="input">
+                <p>地址： <textarea placeholder="請輸入地址" name="address" type="text"cols="30" rows="2">{% if obj.address %}{{ obj.address }}{% endif %}</textarea>   </p>
+            </div>
+        </div>
+        <p>付款方式: </p>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" value="pay_on_delivery" name="payment" id="flexRadioDefault1" checked>
+            <label class="form-check-label" for="flexRadioDefault1">
+                貨到付款
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" value="bank_transfer" name="payment" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                銀行轉帳
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" value="credit_card_payment" name="payment" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                信用卡支付
+            </label>
+        </div>
+        <br>
+        <input type="submit" value="訂單送出" class="btn btn-danger" style="width: 6em; height: 2.5em;">
+        <span style="color: red;">{{ error_msg }}</span>
+    </form>
+    <br>
+</div>
+{% endblock %}

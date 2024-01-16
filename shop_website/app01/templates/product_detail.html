@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block _style %}
+<style>
+    .square-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="product">
+</p>
+    <img src="{{ obj.product_image.url }}" style="height: 100pt; width: 80pt;" alt="{{ product.name }}">
+    <p>{{ obj.product_name }}</p>
+    <p style="color:orangered">NT$ {{ obj.price }}</p>
+    <p>數量</p> 
+
+    <!-- 增減按鈕表單 -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-group" style="width: 150px; margin-bottom: 10px;">
+            <span class="input-group-prepend">
+                <button type="button" class="btn btn-outline-secondary" onclick="adjustQuantity(-1)">-</button>
+            </span>
+            <input type="text" name="quantity" class="form-control square-input" id="quantityInput" value="1">
+            <span class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" onclick="adjustQuantity(1)">+</button>
+            </span>
+            <button type="submit" class="btn btn-warning" style="margin-top: 20px;">加入購物車</button>
+        </div>
+    </form>
+    <br>
+    <h3>商品詳情</h3>
+    <p style="white-space: pre-line; max-width: 600px;">{{ obj.description }}</p>
+
+    <!-- js按鈕增減 -->
+    <script>
+        function adjustQuantity(amount) {
+            var quantityInput = document.getElementById('quantityInput');
+            var currentQuantity = parseInt(quantityInput.value);
+            var newQuantity = currentQuantity + amount;
+            
+            // 確保數量不小於 1
+            newQuantity = Math.max(newQuantity, 1);
+            
+            quantityInput.value = newQuantity;
+            // 在控制台中輸出數量值
+            // console.log('New Quantity:', newQuantity);
+        }
+    </script>
+{% endblock %}
